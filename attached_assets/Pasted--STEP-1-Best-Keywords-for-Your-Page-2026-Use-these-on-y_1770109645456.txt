@@ -1,0 +1,161 @@
+🎯 STEP 1: Best Keywords for Your Page (2026)
+
+Use these on your Job Alerts page:
+
+🔑 Primary Keywords (Main Target)
+latest job alerts 2026
+government jobs in india
+sarkari naukri alerts
+free job notifications
+exam job updates
+
+🔑 Secondary Keywords (Support)
+bank jobs notification
+ssc railway jobs
+admit card result updates
+private jobs india
+state govt jobs
+
+
+👉 These are searched a LOT and fit your portal.
+
+🛠️ STEP 2: EXACT Changes You Must Do on Your Page
+✅ 1. Change Page Title (Very Important)
+
+Current title is likely weak.
+
+Replace with 👇
+
+Latest Job Alerts 2026 | Government & Private Jobs in India – ExaminationPortal
+
+
+Ask your developer to set this in <title> tag.
+
+✅ 2. Add Meta Description
+
+Put this in <meta name="description">:
+
+Get daily latest job alerts 2026, government jobs in India, Sarkari Naukri notifications, admit cards, results and exam updates. Apply online for free.
+
+
+This improves click rate 📈
+
+✅ 3. Add Proper Headings
+
+At top of page:
+
+<H1>Latest Job Alerts 2026 – Government & Private Jobs in India</H1>
+
+
+Then sections:
+
+<H2>Sarkari Naukri & Government Job Notifications</H2>
+<H2>Bank, SSC, Railway & State Jobs</H2>
+<H2>Admit Card, Result & Exam Updates</H2>
+
+
+Google reads this structure.
+
+✅ 4. Add Intro Content (Most Sites Miss This ❗)
+
+At top of page, before job list, add:
+
+📄 Add This Text (You Can Copy)
+
+Welcome to ExaminationPortal Job Alerts. Here you will find daily updates of latest government jobs in India, Sarkari Naukri notifications, private jobs, admit cards, results, and exam updates for 2026. We provide free job notifications for SSC, Banking, Railway, State Government, and PSU exams. Bookmark this page for regular updates.
+
+This gives Google real content.
+
+✅ 5. Improve Each Job Listing
+
+For every job, show:
+
+✔ Job Name
+✔ Department
+✔ Qualification
+✔ Last Date
+✔ Apply Link
+✔ Location
+
+Example format:
+
+SSC CGL 2026 – Graduate Level Jobs
+Eligibility: Any Graduate
+Last Date: 15 March 2026
+Apply Online | Notification PDF
+
+
+More details = higher ranking.
+
+✅ 6. Add “Last Updated” Date
+
+At top:
+
+Last Updated: 3 February 2026
+
+
+Google likes fresh pages 🔄
+
+✅ 7. Internal Linking (Very Powerful)
+
+From other pages, link like:
+
+Check latest job alerts here
+Government job notifications
+
+
+Link → /job-alerts
+
+Do this from:
+✔ Homepage
+✔ Blog pages
+✔ Exam pages
+
+✅ 8. Add FAQ Section (Easy Ranking Boost)
+
+At bottom, add:
+
+❓ FAQ
+
+Q1: Is ExaminationPortal job alerts free?
+Yes, all job notifications are free.
+
+Q2: How often is this page updated?
+Daily with latest government and private jobs.
+
+Q3: Can I get admit cards here?
+Yes, admit cards and results are updated regularly.
+
+Helps in Google snippets ⭐
+
+✅ 9. Speed + Mobile Check
+
+Make sure:
+
+⚡ Page loads < 3 sec
+📱 Mobile friendly
+
+Use Cloudflare if possible.
+
+📆 STEP 3: 90-Day Ranking Plan
+Month 1
+
+✅ Apply above changes
+✅ Register Google Search Console
+✅ Submit sitemap
+
+Month 2
+
+✅ Add 2 blogs/week:
+
+“How to Get Government Job in 2026”
+
+“SSC vs Banking Jobs Comparison”
+
+Month 3
+
+✅ Get 10–20 backlinks
+✅ Share daily on social media
+✅ Guest post on blogs
+
+Result: Ranking starts 🚀

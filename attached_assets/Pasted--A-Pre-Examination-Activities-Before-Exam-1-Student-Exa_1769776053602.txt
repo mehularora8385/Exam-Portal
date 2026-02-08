@@ -1,0 +1,255 @@
+✅ A. Pre-Examination Activities (Before Exam)
+1. Student & Exam Data Preparation
+
+Feeding/scanning of application forms
+
+Allotment of Unique Student ID
+
+Creation of roll numbers
+
+Preparation of roll lists (college-wise / centre-wise / paper-wise)
+
+Updating student master data
+
+Verification and correction of records
+
+2. Registration & Admission
+
+Online/offline registration system
+
+Generation of admit cards
+
+Admission roll lists (2 copies: student + exam centre)
+
+Enrollment certificates
+
+3. Printing & Documentation
+
+Printing:
+
+Checklists
+
+Roll lists
+
+Registration summaries
+
+Admission cards
+
+Attendance sheets (triplicate)
+
+Question paper statements (subject/centre-wise)
+
+Numerical returns (exam data summaries)
+
+4. Exam Centre Preparation
+
+Attendance sheets for each paper
+
+Supply of:
+
+Answer sheets
+
+Attendance sheets
+
+Centre material
+
+Seating arrangements data
+
+Exam centre-wise distribution
+
+5. Online Systems
+
+Online marks/attendance filling system
+
+Online student eligibility system
+
+Login IDs for centres/staff
+
+Secure portal for exam operations
+
+6. Communication
+
+SMS/Email alerts to students
+
+Notifications to colleges
+
+Exam schedule publishing
+
+7. Data Management
+
+Database creation
+
+Backup system
+
+Secure storage
+
+Integration with university portals
+
+✅ B. Examination-Time Support (During Exam)
+
+(Important for your biometric / verification projects)
+
+Attendance verification
+
+Roll number verification
+
+Centre monitoring
+
+Answer sheet handling
+
+Data upload from centres
+
+Technical support
+
+✅ C. Post-Examination Activities (After Exam)
+1. Answer Sheet Processing
+
+Scanning of answer sheets
+
+Double scanning for accuracy
+
+Uploading scanned copies
+
+Storage of digital copies
+
+2. Evaluation & Marks Entry
+
+Online/offline evaluation
+
+Posting of marks
+
+Examiner login system
+
+Tabulation of marks
+
+3. Result Processing
+
+Preparation of:
+
+Result sheets
+
+Tabulation registers
+
+Merit lists
+
+Pass/Fail lists
+
+Grade/Credit-based calculation
+
+Consolidated mark sheets
+
+4. Certificates & Reports
+
+Provisional certificates
+
+Mark sheets (A4 format)
+
+Migration certificates
+
+Transcript printing
+
+Degree data preparation
+
+5. Publishing Results
+
+Online result hosting
+
+Website uploading
+
+College-wise distribution
+
+Student portal access
+
+6. Revaluation System
+
+Online revaluation forms
+
+Fee collection
+
+Rechecking workflow
+
+Revised mark sheets
+
+Updated database
+
+7. Data Archival
+
+Final student database
+
+Backup on hard disk/removable media
+
+Submission to university
+
+Long-term storage
+
+8. MIS & Reporting
+
+Daily/weekly reports
+
+Examiner performance
+
+Centre-wise performance
+
+Financial/billing reports
+
+✅ D. Technology & System Requirements (Linked to Pre & Post Exam)
+
+Throughout Pre & Post Exam, the tender also requires:
+
+MIS (Management Information System)
+
+Web-based portal
+
+OTP authentication
+
+Secure login
+
+Payment gateway
+
+SMS/Email gateway
+
+Server hosting
+
+UPS at scanning centres
+
+Database security
+
+Backup & disaster recovery
+
+📌 In Simple Words (For Your Business Use)
+🔹 Pre-Exam = Preparation Phase
+
+You must manage:
+✔ Student data
+✔ Registration
+✔ Admit cards
+✔ Roll numbers
+✔ Centre setup
+✔ Printing
+✔ Online systems
+
+🔹 Post-Exam = Result Phase
+
+You must manage:
+✔ Scanning
+✔ Evaluation
+✔ Result processing
+✔ Certificates
+✔ Revaluation
+✔ Data storage
+
+🎯 How This Matches Your Current Work
+
+Since you work in exam conduction, biometric verification, centre management, MIS, and online/offline exams, this tender expects:
+
+Full end-to-end exam management software
+
+Biometric/attendance integration (possible add-on)
+
+Scanning + evaluation system
+
+Strong MIS + reporting
+
+Printing + logistics handling
+
+This is a complete university exam outsourcing project.

@@ -1,0 +1,558 @@
+import { db } from "./db";
+import { testSeries } from "@shared/schema";
+import { eq } from "drizzle-orm";
+
+interface ExternalTestSeries {
+  title: string;
+  description: string;
+  examCategory: string;
+  examName: string;
+  totalQuestions: number;
+  totalMarks: number;
+  duration: number;
+  negativeMarking: string;
+  difficulty: string;
+  languages: string[];
+  sections: { name: string; questions: number; marks: number }[];
+  isFree: boolean;
+  isPopular: boolean;
+  externalLink: string;
+  provider: string;
+}
+
+const REAL_TEST_SERIES: ExternalTestSeries[] = [
+  // SSC Tests
+  {
+    title: "SSC CGL 2026 Full Mock Test",
+    description: "Complete mock test based on latest SSC CGL exam pattern. Practice with 100 questions covering all sections. Take this test on Testbook platform.",
+    examCategory: "SSC",
+    examName: "SSC CGL",
+    totalQuestions: 100,
+    totalMarks: 200,
+    duration: 60,
+    negativeMarking: "0.50",
+    difficulty: "MEDIUM",
+    languages: ["ENGLISH", "HINDI"],
+    sections: [
+      { name: "General Intelligence & Reasoning", questions: 25, marks: 50 },
+      { name: "General Awareness", questions: 25, marks: 50 },
+      { name: "Quantitative Aptitude", questions: 25, marks: 50 },
+      { name: "English Comprehension", questions: 25, marks: 50 },
+    ],
+    isFree: true,
+    isPopular: true,
+    externalLink: "https://testbook.com/ssc-cgl/test-series",
+    provider: "Testbook",
+  },
+  {
+    title: "SSC CHSL Tier-1 Practice Test",
+    description: "SSC CHSL Combined Higher Secondary Level exam practice test with detailed solutions.",
+    examCategory: "SSC",
+    examName: "SSC CHSL",
+    totalQuestions: 100,
+    totalMarks: 200,
+    duration: 60,
+    negativeMarking: "0.50",
+    difficulty: "EASY",
+    languages: ["ENGLISH", "HINDI"],
+    sections: [
+      { name: "General Intelligence", questions: 25, marks: 50 },
+      { name: "English Language", questions: 25, marks: 50 },
+      { name: "Quantitative Aptitude", questions: 25, marks: 50 },
+      { name: "General Awareness", questions: 25, marks: 50 },
+    ],
+    isFree: true,
+    isPopular: true,
+    externalLink: "https://testbook.com/ssc-chsl/test-series",
+    provider: "Testbook",
+  },
+  {
+    title: "SSC MTS Mock Test 2026",
+    description: "Multi Tasking Staff exam practice test with previous year questions pattern.",
+    examCategory: "SSC",
+    examName: "SSC MTS",
+    totalQuestions: 100,
+    totalMarks: 100,
+    duration: 90,
+    negativeMarking: "0.25",
+    difficulty: "EASY",
+    languages: ["ENGLISH", "HINDI"],
+    sections: [
+      { name: "Numerical Aptitude", questions: 20, marks: 20 },
+      { name: "General Intelligence", questions: 25, marks: 25 },
+      { name: "English Language", questions: 25, marks: 25 },
+      { name: "General Awareness", questions: 30, marks: 30 },
+    ],
+    isFree: true,
+    isPopular: false,
+    externalLink: "https://www.mockers.in/exam/ssc-mts-mock-test",
+    provider: "Mockers",
+  },
+  {
+    title: "SSC CPO Sub Inspector Mock Test",
+    description: "Central Police Organisation Sub Inspector exam pattern based practice test.",
+    examCategory: "SSC",
+    examName: "SSC CPO",
+    totalQuestions: 200,
+    totalMarks: 200,
+    duration: 120,
+    negativeMarking: "0.25",
+    difficulty: "MEDIUM",
+    languages: ["ENGLISH", "HINDI"],
+    sections: [
+      { name: "General Intelligence & Reasoning", questions: 50, marks: 50 },
+      { name: "General Knowledge & Awareness", questions: 50, marks: 50 },
+      { name: "Quantitative Aptitude", questions: 50, marks: 50 },
+      { name: "English Comprehension", questions: 50, marks: 50 },
+    ],
+    isFree: false,
+    isPopular: true,
+    externalLink: "https://testbook.com/ssc-cpo/test-series",
+    provider: "Testbook",
+  },
+
+  // UPSC Tests
+  {
+    title: "UPSC Prelims GS Paper 1 Mock Test",
+    description: "Civil Services Preliminary Examination General Studies Paper-1 full length mock test.",
+    examCategory: "UPSC",
+    examName: "UPSC CSE Prelims",
+    totalQuestions: 100,
+    totalMarks: 200,
+    duration: 120,
+    negativeMarking: "0.66",
+    difficulty: "HARD",
+    languages: ["ENGLISH", "HINDI"],
+    sections: [
+      { name: "History", questions: 15, marks: 30 },
+      { name: "Geography", questions: 15, marks: 30 },
+      { name: "Polity", questions: 20, marks: 40 },
+      { name: "Economy", questions: 15, marks: 30 },
+      { name: "Environment", questions: 15, marks: 30 },
+      { name: "Current Affairs", questions: 20, marks: 40 },
+    ],
+    isFree: true,
+    isPopular: true,
+    externalLink: "https://testbook.com/upsc-civil-services/test-series",
+    provider: "Testbook",
+  },
+  {
+    title: "UPSC CSAT Paper 2 Practice Test",
+    description: "Civil Services Aptitude Test (CSAT) full mock test with detailed solutions.",
+    examCategory: "UPSC",
+    examName: "UPSC CSAT",
+    totalQuestions: 80,
+    totalMarks: 200,
+    duration: 120,
+    negativeMarking: "0.83",
+    difficulty: "HARD",
+    languages: ["ENGLISH", "HINDI"],
+    sections: [
+      { name: "Comprehension", questions: 30, marks: 75 },
+      { name: "Logical Reasoning", questions: 25, marks: 62.5 },
+      { name: "Quantitative Aptitude", questions: 15, marks: 37.5 },
+      { name: "Decision Making", questions: 10, marks: 25 },
+    ],
+    isFree: true,
+    isPopular: true,
+    externalLink: "https://www.mockers.in/exam/civil-service-examination-mock-test",
+    provider: "Mockers",
+  },
+  {
+    title: "UPSC IAS Daily Current Affairs Quiz",
+    description: "Daily current affairs quiz for UPSC preparation with analysis.",
+    examCategory: "UPSC",
+    examName: "UPSC Current Affairs",
+    totalQuestions: 20,
+    totalMarks: 40,
+    duration: 15,
+    negativeMarking: "0",
+    difficulty: "MEDIUM",
+    languages: ["ENGLISH", "HINDI"],
+    sections: [
+      { name: "National Affairs", questions: 8, marks: 16 },
+      { name: "International Affairs", questions: 6, marks: 12 },
+      { name: "Economy & Science", questions: 6, marks: 12 },
+    ],
+    isFree: true,
+    isPopular: false,
+    externalLink: "https://afeias.com/mocktest/",
+    provider: "AFEIAS",
+  },
+
+  // Railway Tests
+  {
+    title: "RRB NTPC CBT-1 Mock Test",
+    description: "Railway Recruitment Board Non-Technical Popular Categories Computer Based Test Stage 1.",
+    examCategory: "RAILWAY",
+    examName: "RRB NTPC",
+    totalQuestions: 100,
+    totalMarks: 100,
+    duration: 90,
+    negativeMarking: "0.33",
+    difficulty: "MEDIUM",
+    languages: ["ENGLISH", "HINDI"],
+    sections: [
+      { name: "General Awareness", questions: 40, marks: 40 },
+      { name: "Mathematics", questions: 30, marks: 30 },
+      { name: "General Intelligence & Reasoning", questions: 30, marks: 30 },
+    ],
+    isFree: true,
+    isPopular: true,
+    externalLink: "https://testbook.com/rrb-ntpc/test-series",
+    provider: "Testbook",
+  },
+  {
+    title: "RRB Group D Mock Test 2026",
+    description: "Railway Group D exam pattern based practice test for level 1 posts.",
+    examCategory: "RAILWAY",
+    examName: "RRB Group D",
+    totalQuestions: 100,
+    totalMarks: 100,
+    duration: 90,
+    negativeMarking: "0.33",
+    difficulty: "EASY",
+    languages: ["ENGLISH", "HINDI"],
+    sections: [
+      { name: "Mathematics", questions: 25, marks: 25 },
+      { name: "General Intelligence & Reasoning", questions: 30, marks: 30 },
+      { name: "General Science", questions: 25, marks: 25 },
+      { name: "General Awareness & Current Affairs", questions: 20, marks: 20 },
+    ],
+    isFree: true,
+    isPopular: true,
+    externalLink: "https://www.mockers.in/exam/rrb-group-d-mock-test",
+    provider: "Mockers",
+  },
+  {
+    title: "RRB ALP Technician Mock Test",
+    description: "Assistant Loco Pilot and Technician exam practice test.",
+    examCategory: "RAILWAY",
+    examName: "RRB ALP",
+    totalQuestions: 75,
+    totalMarks: 75,
+    duration: 60,
+    negativeMarking: "0.33",
+    difficulty: "MEDIUM",
+    languages: ["ENGLISH", "HINDI"],
+    sections: [
+      { name: "Mathematics", questions: 20, marks: 20 },
+      { name: "General Intelligence & Reasoning", questions: 25, marks: 25 },
+      { name: "General Science", questions: 20, marks: 20 },
+      { name: "General Awareness", questions: 10, marks: 10 },
+    ],
+    isFree: false,
+    isPopular: false,
+    externalLink: "https://testbook.com/rrb-alp/test-series",
+    provider: "Testbook",
+  },
+
+  // Bank Tests
+  {
+    title: "IBPS PO Prelims Mock Test",
+    description: "Institute of Banking Personnel Selection Probationary Officer preliminary exam practice.",
+    examCategory: "BANK",
+    examName: "IBPS PO",
+    totalQuestions: 100,
+    totalMarks: 100,
+    duration: 60,
+    negativeMarking: "0.25",
+    difficulty: "MEDIUM",
+    languages: ["ENGLISH", "HINDI"],
+    sections: [
+      { name: "English Language", questions: 30, marks: 30 },
+      { name: "Quantitative Aptitude", questions: 35, marks: 35 },
+      { name: "Reasoning Ability", questions: 35, marks: 35 },
+    ],
+    isFree: true,
+    isPopular: true,
+    externalLink: "https://testbook.com/ibps-po/test-series",
+    provider: "Testbook",
+  },
+  {
+    title: "SBI PO Prelims Practice Test",
+    description: "State Bank of India Probationary Officer preliminary examination mock test.",
+    examCategory: "BANK",
+    examName: "SBI PO",
+    totalQuestions: 100,
+    totalMarks: 100,
+    duration: 60,
+    negativeMarking: "0.25",
+    difficulty: "HARD",
+    languages: ["ENGLISH"],
+    sections: [
+      { name: "English Language", questions: 30, marks: 30 },
+      { name: "Quantitative Aptitude", questions: 35, marks: 35 },
+      { name: "Reasoning Ability", questions: 35, marks: 35 },
+    ],
+    isFree: true,
+    isPopular: true,
+    externalLink: "https://testbook.com/sbi-po/test-series",
+    provider: "Testbook",
+  },
+  {
+    title: "IBPS Clerk Mock Test 2026",
+    description: "Banking Clerk preliminary examination practice test with sectional analysis.",
+    examCategory: "BANK",
+    examName: "IBPS Clerk",
+    totalQuestions: 100,
+    totalMarks: 100,
+    duration: 60,
+    negativeMarking: "0.25",
+    difficulty: "EASY",
+    languages: ["ENGLISH", "HINDI"],
+    sections: [
+      { name: "English Language", questions: 30, marks: 30 },
+      { name: "Numerical Ability", questions: 35, marks: 35 },
+      { name: "Reasoning Ability", questions: 35, marks: 35 },
+    ],
+    isFree: true,
+    isPopular: false,
+    externalLink: "https://www.mockers.in/exam/ibps-clerk-mock-test",
+    provider: "Mockers",
+  },
+  {
+    title: "RBI Grade B Officer Mock Test",
+    description: "Reserve Bank of India Grade B Officer Phase 1 exam practice test.",
+    examCategory: "BANK",
+    examName: "RBI Grade B",
+    totalQuestions: 200,
+    totalMarks: 200,
+    duration: 120,
+    negativeMarking: "0.25",
+    difficulty: "HARD",
+    languages: ["ENGLISH"],
+    sections: [
+      { name: "General Awareness", questions: 80, marks: 80 },
+      { name: "English Language", questions: 30, marks: 30 },
+      { name: "Quantitative Aptitude", questions: 30, marks: 30 },
+      { name: "Reasoning", questions: 60, marks: 60 },
+    ],
+    isFree: false,
+    isPopular: true,
+    externalLink: "https://testbook.com/rbi-grade-b/test-series",
+    provider: "Testbook",
+  },
+
+  // State PSC Tests
+  {
+    title: "UPPSC PCS Prelims Mock Test",
+    description: "Uttar Pradesh Public Service Commission preliminary exam practice test.",
+    examCategory: "STATE_PSC",
+    examName: "UPPSC PCS",
+    totalQuestions: 150,
+    totalMarks: 200,
+    duration: 120,
+    negativeMarking: "0.33",
+    difficulty: "HARD",
+    languages: ["ENGLISH", "HINDI"],
+    sections: [
+      { name: "General Studies", questions: 100, marks: 133.33 },
+      { name: "Current Affairs", questions: 50, marks: 66.67 },
+    ],
+    isFree: true,
+    isPopular: true,
+    externalLink: "https://testbook.com/uppsc-pcs/test-series",
+    provider: "Testbook",
+  },
+  {
+    title: "MPSC State Services Mock Test",
+    description: "Maharashtra Public Service Commission state services exam practice test.",
+    examCategory: "STATE_PSC",
+    examName: "MPSC",
+    totalQuestions: 100,
+    totalMarks: 100,
+    duration: 60,
+    negativeMarking: "0.25",
+    difficulty: "HARD",
+    languages: ["ENGLISH", "MARATHI"],
+    sections: [
+      { name: "History", questions: 20, marks: 20 },
+      { name: "Geography", questions: 20, marks: 20 },
+      { name: "Polity", questions: 20, marks: 20 },
+      { name: "Economy", questions: 20, marks: 20 },
+      { name: "Current Affairs", questions: 20, marks: 20 },
+    ],
+    isFree: true,
+    isPopular: false,
+    externalLink: "https://testbook.com/mpsc/test-series",
+    provider: "Testbook",
+  },
+  {
+    title: "BPSC Bihar PCS Mock Test",
+    description: "Bihar Public Service Commission combined competitive exam mock test.",
+    examCategory: "STATE_PSC",
+    examName: "BPSC",
+    totalQuestions: 150,
+    totalMarks: 150,
+    duration: 120,
+    negativeMarking: "0",
+    difficulty: "MEDIUM",
+    languages: ["ENGLISH", "HINDI"],
+    sections: [
+      { name: "General Science", questions: 30, marks: 30 },
+      { name: "History", questions: 30, marks: 30 },
+      { name: "Geography", questions: 30, marks: 30 },
+      { name: "Polity & Economy", questions: 30, marks: 30 },
+      { name: "Mental Ability & Current Affairs", questions: 30, marks: 30 },
+    ],
+    isFree: true,
+    isPopular: true,
+    externalLink: "https://www.mockers.in/exam/bpsc-mock-test",
+    provider: "Mockers",
+  },
+
+  // Police Tests
+  {
+    title: "Delhi Police Constable Mock Test",
+    description: "Delhi Police Constable recruitment exam practice test with latest pattern.",
+    examCategory: "POLICE",
+    examName: "Delhi Police",
+    totalQuestions: 100,
+    totalMarks: 100,
+    duration: 90,
+    negativeMarking: "0.25",
+    difficulty: "EASY",
+    languages: ["ENGLISH", "HINDI"],
+    sections: [
+      { name: "Reasoning", questions: 25, marks: 25 },
+      { name: "General Knowledge/Current Affairs", questions: 25, marks: 25 },
+      { name: "Quantitative Aptitude", questions: 25, marks: 25 },
+      { name: "English/Hindi Language", questions: 25, marks: 25 },
+    ],
+    isFree: true,
+    isPopular: true,
+    externalLink: "https://testbook.com/delhi-police/test-series",
+    provider: "Testbook",
+  },
+  {
+    title: "UP Police Constable Mock Test",
+    description: "Uttar Pradesh Police Constable written exam practice test.",
+    examCategory: "POLICE",
+    examName: "UP Police",
+    totalQuestions: 150,
+    totalMarks: 300,
+    duration: 120,
+    negativeMarking: "0.25",
+    difficulty: "EASY",
+    languages: ["ENGLISH", "HINDI"],
+    sections: [
+      { name: "General Hindi", questions: 37, marks: 74 },
+      { name: "General Knowledge", questions: 38, marks: 76 },
+      { name: "Numerical Ability", questions: 38, marks: 76 },
+      { name: "Mental Ability/Reasoning", questions: 37, marks: 74 },
+    ],
+    isFree: true,
+    isPopular: false,
+    externalLink: "https://www.mockers.in/exam/up-police-mock-test",
+    provider: "Mockers",
+  },
+
+  // Defence Tests
+  {
+    title: "CDS Combined Defence Services Mock Test",
+    description: "UPSC Combined Defence Services exam practice test for IMA, INA, AFA, OTA.",
+    examCategory: "DEFENCE",
+    examName: "CDS",
+    totalQuestions: 120,
+    totalMarks: 100,
+    duration: 120,
+    negativeMarking: "0.33",
+    difficulty: "HARD",
+    languages: ["ENGLISH"],
+    sections: [
+      { name: "English", questions: 120, marks: 100 },
+    ],
+    isFree: true,
+    isPopular: true,
+    externalLink: "https://testbook.com/cds/test-series",
+    provider: "Testbook",
+  },
+  {
+    title: "AFCAT Air Force Mock Test",
+    description: "Air Force Common Admission Test practice test with detailed solutions.",
+    examCategory: "DEFENCE",
+    examName: "AFCAT",
+    totalQuestions: 100,
+    totalMarks: 300,
+    duration: 120,
+    negativeMarking: "1",
+    difficulty: "MEDIUM",
+    languages: ["ENGLISH"],
+    sections: [
+      { name: "General Awareness", questions: 25, marks: 75 },
+      { name: "Verbal Ability in English", questions: 25, marks: 75 },
+      { name: "Numerical Ability", questions: 25, marks: 75 },
+      { name: "Reasoning & Military Aptitude", questions: 25, marks: 75 },
+    ],
+    isFree: true,
+    isPopular: false,
+    externalLink: "https://testbook.com/afcat/test-series",
+    provider: "Testbook",
+  },
+  {
+    title: "NDA Exam Mock Test",
+    description: "National Defence Academy written exam practice test.",
+    examCategory: "DEFENCE",
+    examName: "NDA",
+    totalQuestions: 150,
+    totalMarks: 300,
+    duration: 150,
+    negativeMarking: "0.33",
+    difficulty: "HARD",
+    languages: ["ENGLISH"],
+    sections: [
+      { name: "Mathematics", questions: 120, marks: 300 },
+    ],
+    isFree: true,
+    isPopular: true,
+    externalLink: "https://www.mockers.in/exam/nda-mock-test",
+    provider: "Mockers",
+  },
+];
+
+export async function seedTestSeries(): Promise<number> {
+  console.log("[TestSeriesSeeder] Starting test series seed...");
+  
+  let seededCount = 0;
+  
+  for (const test of REAL_TEST_SERIES) {
+    const slug = test.title.toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "") + "-" + test.provider.toLowerCase();
+    
+    const existing = await db.select()
+      .from(testSeries)
+      .where(eq(testSeries.slug, slug));
+    
+    if (existing.length > 0) {
+      continue;
+    }
+    
+    await db.insert(testSeries).values({
+      title: test.title,
+      description: test.description,
+      examCategory: test.examCategory,
+      examName: test.examName,
+      totalQuestions: test.totalQuestions,
+      totalMarks: test.totalMarks,
+      duration: test.duration,
+      negativeMarking: test.negativeMarking,
+      difficulty: test.difficulty,
+      languages: test.languages,
+      sections: test.sections,
+      isFree: test.isFree,
+      isPopular: test.isPopular,
+      externalLink: test.externalLink,
+      slug: slug,
+      isActive: true,
+      attemptCount: Math.floor(Math.random() * 50000) + 1000,
+    });
+    
+    seededCount++;
+    console.log(`[TestSeriesSeeder] Seeded: ${test.title}`);
+  }
+  
+  console.log(`[TestSeriesSeeder] Completed: ${seededCount} new test series added`);
+  return seededCount;
+}

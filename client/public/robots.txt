@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+Sitemap: https://examinationportal.com/sitemap.xml
+
+# RojgarHub - Government Jobs Portal
+# Website: https://examinationportal.com/job-alerts
+# Contact: jobs@examinationportal.com
