@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: govportal
+      POSTGRES_PASSWORD: your_secure_password_here
+      POSTGRES_DB: govportal
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://govportal:your_secure_password_here@db:5432/govportal
+      SESSION_SECRET: change_this_to_a_random_string
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
